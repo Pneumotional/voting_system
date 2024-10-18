@@ -1,0 +1,45 @@
+<!-- templates/vote.html -->
+{% extends "votes/base.html" %}
+{% block content %}
+<div class="container">
+    <h3>Vote for Your Favorite Candidates</h3>
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <form method="POST" action="{% url 'submit_vote' voter_code.id %}">
+        {% csrf_token %}
+        {% for category in categories %}
+        <div class="accordion" id="{{ category.name }}">
+            <div class="accordion-item">
+              <h4 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#h{{ category.name }}" aria-expanded="true" aria-controls="collapseOne">
+                    <h6 class="category-text">{{ category.name }}</h6>
+                </button>
+              </h4>
+              {% for candidate in category.candidates.all %}
+              <div id="h{{ category.name }}" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#{{ category.name }}">
+                <div class="accordion-body">
+                    <label>
+                        <input type="radio" name="category_{{ category.id }}" value="{{ candidate.id }}" required>
+                        {{ candidate.name }}
+                    </label><br>
+                </div>
+              </div>
+              {% endfor %}
+            </div>    
+    </div>
+    {% endfor %}
+     
+        <button type="submit">Submit Vote</button>
+    </form>
+
+
+    
+    
+  
+        {%endblock content%}

@@ -1,0 +1,27 @@
+{% extends "votes/base.html" %}
+{% block title %}Generate System{% endblock %}
+{% block content %}
+<div class="container">
+    <h3 class="mb-5">Generate Voting Codes</h3>
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+      </div>
+    {% endfor %}
+{% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        <label for="code_count">Number of Codes:</label>
+        <input  class="form-control mb-3" type="number" id="code_count" name="code_count" required >
+        
+        <label for="expiry_hours">Expiry Hours:</label>
+        <input type="number" class="form-control mb-3"  id="expiry_hours" name="expiry_hours" required>
+        
+        <button type="submit">Generate</button>
+    </form>
+    <a href="{% url 'export_generated_codes_excel' %}" class="btn btn-success mt-5 mb-3">Download Excel</a>
+    <a href="{% url 'export_generated_codes_pdf' %}" class="btn btn-danger mt-5 mb-3">Download PDF</a>
+</div>
+
+{% endblock content%}

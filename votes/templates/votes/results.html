@@ -1,0 +1,33 @@
+{% extends "votes/base.html" %}
+{% block content %}
+    <div class="voting-container">
+        <h1 class="mb-5">Voting Results</h1>
+        {% for category, candidates in results.items %}
+        <div class="badge bg-primary text-wrap mb-3" style="width: 100%; padding:5px; padding-left:30px; color:white;">
+            <h6 class="text-left">{{ category }}</h6>
+          </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Candidate</th>
+                        <th scope="col">Number of Votes</th>
+                        <!-- <th>Action</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for candidate, vote_count in candidates.items %}
+                        <tr>
+                            <td>{{ candidate }}</td>
+                            <td>{{ vote_count }}</td>
+                            <!-- <td><button class=" btn btn-primary">Download</button></td> -->
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endfor %}
+
+    <a href="{% url 'export_to_excel' %}" class="btn btn-success mb-3">Download Excel</a>
+    <a href="{% url 'export_to_pdf' %}" class="btn btn-danger mb-3">Download PDF</a>
+        </div>
+    
+{% endblock content%}
