@@ -18,7 +18,12 @@
                     {% for candidate, vote_count in candidates.items %}
                         <tr>
                             <td>{{ candidate }}</td>
-                            <td>{{ vote_count }}</td>
+                            <td>
+                                <div class="badge bg-primary text-wrap"style="width: 10%; padding:5px; color:white; justify-items:center;">
+                                    <h6 class="text-center">{{vote_count }}</h6>
+                                </div> 
+                            </td>
+
                             <!-- <td><button class=" btn btn-primary">Download</button></td> -->
                         </tr>
                     {% endfor %}
